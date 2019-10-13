@@ -50,7 +50,7 @@ Using the Java Library
         voguepayObj.amount=20;
         voguepayObj.storeID="5a3644ba2c"; //Optional
         voguepayObj.currencyISO3="USD";
-        voguepayObj.reference="23444"; //Replace with your unique reference for this transaction
+        voguepayObj.reference="MY_UNIQUE_REF"; //Replace with your unique reference for this transaction
       
         voguepayObj.callbackUrl="https://domain.com/callback";
         voguepayObj.successUrl="https://domain.com/success";
@@ -79,62 +79,49 @@ Sample Responses
     <a href="https://voguepay.com/documentation#section-six" rel="nofollow">Demo card details</a> and <a href="https://voguepay.com/whitelabel" rel="nofollow">Documentation</a>
 </div>
 <pre>
-   //Create voguepay merchant instance
-   Merchant merchantinfo = new Merchant();
-   merchantinfo.MerchantID = "6359-0000000";
-   merchantinfo.Username = "username";
-   merchantinfo.Email = "sample@gmail.com";
-   merchantinfo.CommandAPIToken = "ZnHzcbxKVbvF5d3J5JvZqZe587Rna";
-   merchantinfo.PublicKeyFile = @"C:\Users\Rock\public.txt"; //URL path to saved public key
-    
-    //Create voguepay instance (Parameters "live" or "demo", default is demo)
-    Voguepay voguepay = new Voguepay("live");
-    voguepay.Init(merchantinfo);
+   
+   
+    //Create voguepay instance with voguepay details
+        Voguepay voguepayObj=new Voguepay("MERCHANTID","USERNAME","EMAIL");
+        voguepayObj.setCommandAPIToken("5W4HPqyhfTDgna78jnPdTnAh22"); //Generate one in account settings
+        voguepayObj.setPublicKeyPath("c://key.txt"); //Generate one in account settings and save to a file on your system, ensure its readable
+        voguepayObj.setMode("live"); //demo or live mode
+        
+        Customer customerObj = new Customer();
+        customerObj.Name="Fries Segun";
+        customerObj.Address="33a abba johnson";
+        customerObj.CountryISO3="NGA";
+        customerObj.Email="customer@gmail.com";
+        customerObj.Phone="04444";
+        customerObj.State="Lagos";
+        customerObj.City="Ikeja";
+        customerObj.ZipCode="23401";
+        voguepayObj.setCustomer(customerObj);
+       
+        
+        voguepayObj.memo="Payment for shoes";
+        voguepayObj.amount=20;
+        voguepayObj.storeID="5a3644ba2c"; //Optional
+        voguepayObj.currencyISO3="USD";
+        voguepayObj.reference="MY_UNIQUE_REF"; //Replace with your unique reference for this transaction
+        
+        CreditCard creditcardObj= new CreditCard();
+        creditcardObj.Name="Fries Segun";
+        creditcardObj.Pan="5399820213937034";
+        creditcardObj.ExpiryMonth="05";
+        creditcardObj.ExpiryYear="21";
+        creditcardObj.CVV="100";
+        voguepayObj.setCreditCard(creditcardObj);
+        
+        voguepayObj.callbackUrl="https://domain.com/callback";
+        voguepayObj.customerUrl="https://domain.com/customer";
+        voguepayObj.redirectUrl="https://domain.com/redirect";
 
-    //Create customer instance
-    Customerinfo customer = new Customerinfo();
-    customer.Name = "Sam Great";
-    customer.Phone = "20339922";
-    customer.Email = "sample@yahoo.com";
-    customer.City = "Allen";
-    customer.Country = "NGA";
-    customer.State = "Ikeja";
-    customer.ZipCode = "23401";
-    customer.Address = "3 Drive view estate";
+        
+       System.out.println(voguepayObj.DirectPayment());
 
 
-    DirectPayment directpayment = new DirectPayment();
-    directpayment.version = 2;
-    directpayment.Amount = 100.22;
-    directpayment.Currency = "USD";
-    directpayment.Reference = "MY_UNIQUE_REF";
-    directpayment.Memo = "Sample payment";
-    directpayment.RedirectURL="https://sample.com/redirect";
-    directpayment.ReferralURL="https://sample.com/referral";
-    directpayment.ResponseURL="https://sample.com/notify/";
-    directpayment.StoreID = "5a33c3933ca"; //optional
-
-    directpayment.CardName = "Steve";
-    directpayment.CardPan = "5389830123937029";
-    directpayment.CardExpiryMonth = 5;
-    directpayment.CardExpiryYear = 21;
-    directpayment.CardCVV = 170;
-
-
-    directpayment.ServerPublicIP= "192.333.44.33";
-    directpayment.ServerWebsiteURL= "www.google.com";
-    directpayment.CustomerReferringIP= "10.22.333.33";
-    directpayment.CustomerReferringWebsite= "www.shades.com";
-
-    directpayment.DescriptorCompanyName= "Sparks";
-    directpayment.DescriptorCountryAddress= "Sparks Street";
-    directpayment.DescriptorCityAddress= "Califonia";
-    directpayment.DescriptorCountryAddress= "USA"; //country or 3 letter ISO
-   // directpayment.CardToken = "5a344439203";
-  //  directpayment.CardTokenize =true;
-  
-    string jsonResult = voguepay.Pay(directpayment, customer);
-</pre>
+  </pre>
 
 <div>
 Sample Responses
@@ -170,21 +157,15 @@ Sample Responses
      <a href="https://voguepay.com/documentation#section-five" rel="nofollow">Documentation</a>
 </div>
 <pre>
-   //Create voguepay merchant instance
-    Merchant merchantinfo = new Merchant();
-    merchantinfo.MerchantID = "6359-0000000";
-    merchantinfo.Username = "username";
-    merchantinfo.Email = "sample@gmail.com";
-    merchantinfo.CommandAPIToken = "ZnHzcbxKVbvF5d3J5JvZqZe587Rna";
-    
-    //Create voguepay instance (Parameters "live" or "demo", default is demo)
-    Voguepay voguepay = new Voguepay("live");
-    voguepay.Init(merchantinfo);
-    
-    //Query Transaction
-    Transaction transaction = new Transaction();
-    transaction.TransactionID= "5d041a2843bd8";
-    string jsonResult = voguepay.Query(transaction);
+      //Create voguepay instance with voguepay details
+        Voguepay voguepayObj=new Voguepay("MERCHANTID","USERNAME","EMAIL");
+        voguepayObj.setCommandAPIToken("5W4HPqyhfTDgna78jnPdTnAh22"); //Generate one in account settings
+        voguepayObj.setPublicKeyPath("c://key.txt"); //Generate one in account settings and save to a file on your system, ensure its readable
+        voguepayObj.setMode("live"); //demo or live mode
+        
+        System.out.println(voguepayObj.query("5d9e38d91c0e9"));
+
+        
 </pre>
 
 <div>

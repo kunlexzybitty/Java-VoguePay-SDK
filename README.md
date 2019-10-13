@@ -56,7 +56,7 @@ Using the Java Library
         voguepayObj.successUrl="https://domain.com/success";
         voguepayObj.failUrl="https://domain.com/fail";
         
-        System.out.println(voguepayObj.GeneratePayLink());
+        String jsonresponse= voguepayObj.GeneratePayLink();
         
 
     
@@ -118,7 +118,7 @@ Sample Responses
         voguepayObj.redirectUrl="https://domain.com/redirect";
 
         
-       System.out.println(voguepayObj.DirectPayment());
+       String jsonresponse= voguepayObj.DirectPayment();
 
 
   </pre>
@@ -163,7 +163,7 @@ Sample Responses
         voguepayObj.setPublicKeyPath("c://key.txt"); //Generate one in account settings and save to a file on your system, ensure its readable
         voguepayObj.setMode("live"); //demo or live mode
         
-        System.out.println(voguepayObj.query("5d9e38d91c0e9"));
+       String jsonresponse= voguepayObj.query("5d9e38d91c0e9");
 
         
 </pre>
